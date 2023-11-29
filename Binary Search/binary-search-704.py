@@ -11,7 +11,7 @@
 ## => return -1 because the target is not in the input array
 
 # Complexities:
-## Time => O(log(n)), where n is the length of the string
+## Time => O(log(n)), where n is the length of the array
 ## Space => O(1)
 
 class Solution:
