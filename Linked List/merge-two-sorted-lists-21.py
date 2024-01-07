@@ -8,8 +8,8 @@
 ##  Return the head.next because head is still null (the way we append nodes to the tail is always by calling tail.next = node so that's why the first node(head) remains null)
 
 # Complexities:
-## Time => O(n), where n is the length of the linked list
-## Space => O(1)
+## Time => O(max(n, m)), where n is the length of list1 and m is the length of list2
+## Space => O(n + m), where n is the length of list1 and m is the length of list2
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
