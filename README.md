@@ -5,9 +5,3 @@
 
 ## Summary
 ### This repository is used to store all Leetcode problems solved in my free time or while preparing for interviews.
-
-## Study Materials
-### If I need an explanation of the general concept for a particular problem I check one of the following:
-  - My personal notes from the book [Cracking the Coding Interview](https://www.crackingthecodinginterview.com)
-  - [Neetcode](https://neetcode.io) website or YouTube channel
-  - Rarely, I also check the problem's solutions on Leetcode
