@@ -20,11 +20,11 @@ class Solution:
             nonlocal max_diam
             
             if root == None:
-                return -1
+                return 0
 
             left = dfs(root.left)
             right = dfs(root.right)
-            max_diam = max(max_diam, left + right + 2)
+            max_diam = max(max_diam, left + right)
 
             return 1 + max(left, right)
         
