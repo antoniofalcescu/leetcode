@@ -44,3 +44,12 @@ class Queue<T> {
 		return this.items.length === 0;
 	}
 }
+
+class AdjacencyListNode {
+  val: number;
+  neighbors: AdjacencyListNode[];
+  constructor(val?: number, neighbors?: AdjacencyListNode[]) {
+    this.val = val === undefined ? 0 : val;
+    this.neighbors = neighbors === undefined ? [] : neighbors;
+  }
+}
