@@ -28,3 +28,19 @@ class _Node {
 		this.random = random === undefined ? null : random;
 	}
 }
+
+class Queue<T> {
+	private items: T[] = [];
+
+	push(item: T) {
+		this.items.push(item);
+	}
+
+	pop() {
+		return this.items.shift();
+	}
+
+	isEmpty() {
+		return this.items.length === 0;
+	}
+}
