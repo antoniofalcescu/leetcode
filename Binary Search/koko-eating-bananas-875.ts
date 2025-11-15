@@ -11,7 +11,7 @@
 // Time => O(log(max(piles)) * n), where max(piles) is the maximum number of bananas in a pile and n is the number of piles
 // Space => O(1)
 
-function canFinish(piles: number[], h: number, k: number): boolean {
+function canFinishBananas(piles: number[], h: number, k: number): boolean {
 	let time = 0;
 
 	for (const pile of piles) {
@@ -31,7 +31,7 @@ function minEatingSpeed(piles: number[], h: number): number {
 
 	while (left <= right) {
 		const mid = Math.floor((left + right) / 2);
-		const canFinishForMid = canFinish(piles, h, mid);
+		const canFinishForMid = canFinishBananas(piles, h, mid);
 
 		if (canFinishForMid) {
 			right = mid - 1;
