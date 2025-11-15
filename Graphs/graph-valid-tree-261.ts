@@ -13,7 +13,7 @@
 // Time => O(v + e), where v is the number of nodes and e is the number of edges in the graph
 // Space => O(v + e), where v is the number of nodes and e is the number of edges in the graph
 
-class Solution {
+class GraphValidTreeSolution {
 	/**
 	 * @param {number} n
 	 * @param {number[][]} edges
