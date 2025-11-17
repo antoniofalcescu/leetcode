@@ -7,10 +7,10 @@
 //   - Initialize zeroes count according to current character
 //   - While the number of zeroes squared is less than or equal to the string length:
 //     - Get the next zero index from the nextZeroIndexes array (non-inclusive)
-//     - Calculate the window length and number of onex (length - zeroes)
+//     - Calculate the window length and number of ones (length - zeroes)
 //     - If the number of ones is greater than or equal to the number of zeroes squared, increment the answer by:
-//       - the difference between the next zero index and right pointer
-//       - the number of ones minus the number of zeroes squared plus one
+//       - the difference between the next zero index and right pointer (whole window length)
+//       - the number of ones minus the number of zeroes squared plus one (extra ones)
 //     - Update the right pointer to the next zero index
 //     - Increment the zeroes count by 1 (since we jumped to the next zero)
 //     - If the right pointer is equal to the string length, break the inner loop and the next left loop will reset it
