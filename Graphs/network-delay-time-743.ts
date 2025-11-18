@@ -15,6 +15,8 @@
 // Time => O(e * log(v)), where e is the number of edges and v is the number of vertices
 // Space => O(e + v), where e is the number of edges and v is the number of vertices
 
+import { MinPriorityQueue } from "@datastructures-js/priority-queue";
+
 function networkDelayTime(times: number[][], n: number, k: number): number {
 	const adjList = new Map();
 	for (let i = 1; i <= n; i++) {
