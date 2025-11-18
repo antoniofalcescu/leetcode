@@ -47,6 +47,10 @@ class Queue<T> {
 	size() {
 		return this.items.length;
 	}
+
+	front() {
+		return this.items[0];
+	}
 }
 
 class AdjacencyListNode {
