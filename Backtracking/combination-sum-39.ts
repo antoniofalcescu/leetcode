@@ -12,7 +12,7 @@
 //     - Exclude the current element from the current subset and recursively call the bkt function with the next index and the same sum (right child of the decision tree)
 
 // Complexities:
-// Time: O(2^(t / min(candidates))), where t is the target and min(candidates) is the minimum element in the input array
+// Time: O(n * 2^(t / min(candidates))), where n is the length of the input array and t is the target and min(candidates) is the minimum element in the input array
 // Space: O(t / min(candidates)), where t is the target and min(candidates) is the minimum element in the input array
 
 function combinationSum(candidates: number[], target: number): number[][] {
