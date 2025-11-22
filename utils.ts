@@ -61,3 +61,13 @@ class AdjacencyListNode {
 		this.neighbors = neighbors === undefined ? [] : neighbors;
 	}
 }
+
+class TrieNode {
+	children: Map<string, TrieNode>;
+	endOfWord: boolean;
+
+	constructor() {
+		this.children = new Map();
+		this.endOfWord = false;
+	}
+}

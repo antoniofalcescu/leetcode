@@ -17,16 +17,6 @@
 // Time => O(n), where n is the length of the input word or prefix
 // Space => O(m), where m is the number of unique characters in the input words
 
-class TrieNode {
-	children: Map<string, TrieNode>;
-	endOfWord: boolean;
-
-	constructor() {
-		this.children = new Map();
-		this.endOfWord = false;
-	}
-}
-
 class Trie {
 	private readonly root: TrieNode;
 
