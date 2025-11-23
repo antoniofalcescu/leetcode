@@ -34,5 +34,5 @@ function maxSumDivThree(nums: number[]): number {
 		map[currMod] = Math.min(currModValue, x);
 	}
 
-	return sum - (map[mod] ?? 0);
+	return sum - map[mod];
 }
