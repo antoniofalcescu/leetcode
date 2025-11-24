@@ -1,26 +1,23 @@
 // https://leetcode.com/problems/daily-temperatures/
 
 // TL;DR:
-// Use a stack to keep track of the temperatures and the indices
-// The main idea is to iterate through the temps array and:
-//  - push the values and indices in a stack
-//  - while the top of the stack is less than the current temp, pop it and assign the indices difference to the ans array -> This is still O(n) because we only pop each element once
-// Return the answer array
-
-// Complexities:
-// Time => O(n), where n is the length of the input array -> It's O(N) because we only push each element once and pop each element once -> O(2*N) = O(N)
-// Space => O(n), where n is the length of the input array
+// Use a monotonic decreasing stack to keep track of the indices of the temperatures
+// Iterate through the temps array and:
+//  - pop all stack elements that are less than the current temp and add the indices difference to the ans array
+//  - push the current index to the stack
 
 function dailyTemperatures(temperatures: number[]): number[] {
-	const stk: [number, number][] = [];
 	const ans = Array.from({ length: temperatures.length }, () => 0);
+	const stack: number[] = [];
 	for (let i = 0; i < temperatures.length; i++) {
-		while (stk.length && stk[stk.length - 1][0] < temperatures[i]) {
-			const [stkTemp, stkIdx] = stk.pop() as [number, number];
-			ans[stkIdx] = i - stkIdx;
+		while (
+			stack.length > 0 &&
+			temperatures[stack[stack.length - 1]] < temperatures[i]
+		) {
+			const top = stack.pop() as number;
+			ans[top] = i - top;
 		}
-
-		stk.push([temperatures[i], i]);
+		stack.push(i);
 	}
 
 	return ans;
