@@ -2,7 +2,7 @@
 
 // TL;DR:
 // Key is that the array has length n + 1 and the numbers are in the range 1 to n
-// If we treat the array as a linked list, we can visualize a cycle inside it (if we move by the nums value at the slow/fast pointer)
+// If we treat the array as a linked list, we can visualize a cycle inside it (with the nodes as indices and jump with node = nums[node])
 // We can use the fast and slow pointer approach to reach a point inside the cycle where they intersect
 // After we find the cycle point, we need another slow pointer to start from the beginning and wait for it to intersect with the first slow pointer to find the start of the cycle (this is the duplicate number)
 //   - This works mathematically because:
@@ -15,27 +15,19 @@
 // Space => O(1), in-place solution
 
 function findDuplicate(nums: number[]): number {
-	let slow = 0;
-	let fast = 0;
-
+	let [slow, fast] = [0, 0];
 	while (true) {
 		slow = nums[slow];
 		fast = nums[nums[fast]];
-
 		if (slow === fast) {
 			break;
 		}
 	}
 
 	let slow2 = 0;
-	while (true) {
+	while (slow !== slow2) {
 		slow = nums[slow];
 		slow2 = nums[slow2];
-
-		if (slow === slow2) {
-			return slow;
-		}
 	}
-
-	return -1;
+	return slow;
 }
