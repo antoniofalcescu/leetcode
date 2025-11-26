@@ -11,12 +11,12 @@
 // Space => O(n), where n is the number of nodes in the tree
 
 function rightSideView(root: TreeNode | null): number[] {
-	const ans = [];
+	const ans: number[] = [];
 	const queue = new Queue<TreeNode | null>();
 	queue.push(root);
 	while (!queue.isEmpty()) {
 		const qLength = queue.size();
-		let rightest;
+		let rightest: number | undefined;
 		for (let i = 0; i < qLength; i++) {
 			const top = queue.pop();
 			if (top) {
