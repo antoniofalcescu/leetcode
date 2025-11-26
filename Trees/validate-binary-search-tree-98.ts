@@ -1,40 +1,29 @@
 // https://leetcode.com/problems/validate-binary-search-tree/
 
 // TL;DR:
-// Use a BFS approach to traverse the tree level by level
-// For each node, we also keep track of the min and max values allowed for the current node
-// If the current node's value is greater than or equal to the max value or less than or equal to the min value, we return false
-// We return true if we traverse the entire tree without returning false for any node
+// Use a DFS approach
+// For each node, if its value is <= min or >= max, we return false
+// Then, we call the DFS for the left and right children with the new min and max values (min(max, current node's value) and max(min, current node's value)) depending if we go left or right
+// Return true if we reached all leafs without returning false
 
 // Complexities:
 // Time => O(n), where n is the number of nodes in the tree
 // Space => O(n), where n is the number of nodes in the tree
 
 function isValidBST(root: TreeNode | null): boolean {
-	if (!root) {
-		return true;
-	}
-
-	const queue = [root];
-	const rangeQueue: number[][] = [[-Infinity, Infinity]];
-	while (queue.length) {
-		const top = queue.shift()!;
-		const [min, max] = rangeQueue.shift()!;
-
-		if (top.val >= max || top.val <= min) {
+	function dfs(node: TreeNode | null, min: number, max: number): boolean {
+		if (!node) {
+			return true;
+		}
+		if (node.val <= min || node.val >= max) {
 			return false;
 		}
 
-		if (top.left) {
-			queue.push(top.left);
-			rangeQueue.push([min, top.val]);
-		}
-
-		if (top.right) {
-			queue.push(top.right);
-			rangeQueue.push([top.val, max]);
-		}
+		return (
+			dfs(node.left, min, Math.min(max, node.val)) &&
+			dfs(node.right, Math.max(min, node.val), max)
+		);
 	}
 
-	return true;
+	return dfs(root, -Infinity, Infinity);
 }
