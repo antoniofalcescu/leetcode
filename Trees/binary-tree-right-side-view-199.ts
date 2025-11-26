@@ -1,32 +1,33 @@
 // https://leetcode.com/problems/binary-tree-right-side-view/
 
 // TL;DR:
-// Use a BFS approach to traverse the tree level by level
-// For each level, we add the children right to left to in the queue
-// Then, inside the queue we'll have the nodes ordered from right to left and we can just take the first one and use a found variable to skip the others
-// Add the current found node to the answer array and set found to true
+// Use a BFS approach
+// Push the root node to the queue
+// Then, each time we have elements in the queue, pop all of them and process non-null nodes by overwriting the rightest value and add their children to the queue (left to right)
+// If we found any node in this level, add it to the answer array
 
 // Complexities:
 // Time => O(n), where n is the number of nodes in the tree
 // Space => O(n), where n is the number of nodes in the tree
 
 function rightSideView(root: TreeNode | null): number[] {
-	const queue = [root];
-	const ans: number[] = [];
-	while (queue.length) {
-		const qLength = queue.length;
-		let found = false;
+	const ans = [];
+	const queue = new Queue<TreeNode | null>();
+	queue.push(root);
+	while (!queue.isEmpty()) {
+		const qLength = queue.size();
+		let rightest;
 		for (let i = 0; i < qLength; i++) {
-			const top = queue.shift();
+			const top = queue.pop();
 			if (top) {
-				queue.push(top.right, top.left);
-				if (!found) {
-					ans.push(top.val);
-					found = true;
-				}
+				rightest = top.val;
+				queue.push(top.left);
+				queue.push(top.right);
 			}
 		}
+		if (rightest !== undefined) {
+			ans.push(rightest);
+		}
 	}
-
 	return ans;
 }
