@@ -19,12 +19,15 @@ function lowestCommonAncestor(
 		return null;
 	}
 
-	const [small, big] = [Math.min(p.val, q.val), Math.max(p.val, q.val)];
-	if (root.val > big) {
-		return lowestCommonAncestor(root.left, p, q);
-	} else if (root.val < small) {
-		return lowestCommonAncestor(root.right, p, q);
-	} else {
+	const small = p.val < q.val ? p : q;
+	const big = p.val > q.val ? p : q;
+	if (small.val <= root.val && big.val >= root.val) {
 		return root;
+	} else if (small.val > root.val) {
+		return lowestCommonAncestor(root.right, p, q);
+	} else if (big.val < root.val) {
+		return lowestCommonAncestor(root.left, p, q);
 	}
+
+	return null;
 }
