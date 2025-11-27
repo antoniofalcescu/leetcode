@@ -1,4 +1,4 @@
-// https://leetcode.com/problems/longest-substring-with-at-most-two-distinct-characters/
+// https://neetcode.io/problems/longest-substring-with-at-most-two-distinct-characters
 
 // Hint:
 // - Sliding Window approach with a frequency map and unique characters variables to handle current window state (increment with right pointer, decrement with left pointer)
