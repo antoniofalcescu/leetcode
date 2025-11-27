@@ -3,7 +3,7 @@
 // TL;DR:
 // Use a DFS approach
 // For each node, if its value is <= min or >= max, we return false
-// Then, we call the DFS for the left and right children with the new min and max values (min(max, current node's value) and max(min, current node's value)) depending if we go left or right
+// Then, we call the DFS for the left and right children with the new min and max values (min is current node's value for left, max is current node's value for right)
 // Return true if we reached all leafs without returning false
 
 // Complexities:
@@ -11,7 +11,7 @@
 // Space => O(n), where n is the number of nodes in the tree
 
 function isValidBST(root: TreeNode | null): boolean {
-	function dfs(node: TreeNode | null, min: number, max: number): boolean {
+	function dfs(node: TreeNode | null, min: number, max: number) {
 		if (!node) {
 			return true;
 		}
@@ -19,10 +19,7 @@ function isValidBST(root: TreeNode | null): boolean {
 			return false;
 		}
 
-		return (
-			dfs(node.left, min, Math.min(max, node.val)) &&
-			dfs(node.right, Math.max(min, node.val), max)
-		);
+		return dfs(node.left, min, node.val) && dfs(node.right, node.val, max);
 	}
 
 	return dfs(root, -Infinity, Infinity);
