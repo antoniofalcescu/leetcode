@@ -1,5 +1,8 @@
 // https://leetcode.com/problems/car-fleet/
 
+// Hint:
+// - Monotonic increasing stack approach to keep track of the time it takes for each car to reach the target
+
 // TL;DR:
 // Use a monotonic strictly increasing stack to keep track of the time it takes for each car to reach the target
 // Sort the pair of position and speed in descending order (by position)
