@@ -1,7 +1,7 @@
 // https://leetcode.com/problems/longest-palindromic-substring/
 
 // Hint:
-// - Check palindromes by considering each character as the center of a potential palindrome (take into accoutn odd/even scenarios)
+// - Check palindromes by considering each character as the center of a potential palindrome (take into account odd/even scenarios)
 
 // TL;DR:
 // Iterate through the string and for each character:
@@ -14,7 +14,7 @@
 // Time => O(n), where n is the length of the input string
 // Space => O(1)
 
-function longestPalindrome(s: string): string {
+function longestPalindromicSubstring(s: string): string {
 	let ansIdx = 0;
 	let ansLength = 0;
 	let [left, right]: [number, number] = [-1, -1];
