@@ -16,31 +16,21 @@
 // Time => O(n * m * 4^k + s), where n is the number of rows, m is the number of columns, k is the length of the longest word and s is the length of all words in the input array
 // Space => O(s), where s is the length of all words in the input array
 
-class TrieNode {
-	children: Map<string, TrieNode>;
-	endOfWord: boolean;
-
-	constructor() {
-		this.children = new Map();
-		this.endOfWord = false;
-	}
-
-	addWord(word: string): void {
-		let curr: TrieNode = this;
-		for (const c of word) {
-			if (!curr.children.has(c)) {
-				curr.children.set(c, new TrieNode());
-			}
-			curr = curr.children.get(c)!;
+function addWord(root: TrieNode, word: string): void {
+	let curr: TrieNode = root;
+	for (const c of word) {
+		if (!curr.children.has(c)) {
+			curr.children.set(c, new TrieNode());
 		}
-		curr.endOfWord = true;
+		curr = curr.children.get(c)!;
 	}
+	curr.endOfWord = true;
 }
 
 function findWords(board: string[][], words: string[]): string[] {
 	const root = new TrieNode();
 	for (const word of words) {
-		root.addWord(word);
+		addWord(root, word);
 	}
 
 	const ROWS = board.length;
