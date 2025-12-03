@@ -3,7 +3,7 @@
 // Hint:
 // - Consider 2 decisions on each day: Buy/Sell + Cooldown
 // - Draw Decision Tree with these states -> Cache based on (day, canBuy) and define the Top-Down Recursive Cases
-// - Optimize to Bottom-Up in O(1) space since the buy/sell states on a certain day depend only on the next day's buy/sell and the next next day's buy (because of cooldown after buying)
+// - Optimize to Bottom-Up in O(1) space since the buy/sell states on a certain day depend only on the next day's buy/sell and the next next day's buy (because of cooldown after selling)
 
 // TL;DR:
 // Use a DP bottom-up approach
