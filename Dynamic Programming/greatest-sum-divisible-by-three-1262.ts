@@ -15,24 +15,24 @@
 // Space => O(1)
 
 function maxSumDivThree(nums: number[]): number {
-	const sum = nums.reduce((x, acc) => acc + x, 0);
-	const mod = sum % 3;
-	if (mod === 0) {
+	const sum = nums.reduce((acc, num) => acc + num, 0);
+	if (sum % 3 === 0) {
 		return sum;
 	}
 
-	const map: Record<number, number> = {};
-	for (const x of nums) {
-		const currMod = x % 3;
-		const currModValue = map[currMod] ?? sum;
-		const currInvertModValue = map[3 - currMod] ?? sum;
+	const remainderToMin = [0, sum, sum];
+	for (const num of nums) {
+		const remainder = num % 3;
+		const currRemainderMin = remainderToMin[remainder];
 
-		map[3 - currMod] = Math.min(
-			currInvertModValue,
-			Math.min(x + currModValue, sum)
+		const invertedRemainder = 3 - remainder;
+		const currInvertedRemainderMin = remainderToMin[invertedRemainder];
+
+		remainderToMin[remainder] = Math.min(currRemainderMin, num);
+		remainderToMin[invertedRemainder] = Math.min(
+			currInvertedRemainderMin,
+			currRemainderMin + num
 		);
-		map[currMod] = Math.min(currModValue, x);
 	}
-
-	return sum - map[mod];
+	return sum - remainderToMin[sum % 3];
 }
