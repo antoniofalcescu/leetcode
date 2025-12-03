@@ -1,13 +1,13 @@
 // https://leetcode.com/problems/greatest-sum-divisible-by-three/
 
 // TL;DR:
-// Use a hash map to store the minimum value for each modulo 3
+// Use an array to store the minimum value for each modulo 3
 // Iterate through the input array and:
-//   - Calculate the current modulo 3
-//   - Calculate the current modulo value and the current invert modulo value (3 - currMod)
-//   - Update the hash map with the new values:
-//     - The current invert modulo value is the min(currInvertModValue, x + currModValue)
-//     - The current modulo value is the min(currModValue, x)
+//   - Calculate the current modulo 3 and the inverted modulo 3 (3 - currMod)
+//   - Get the current values for the 2 modulos
+//   - Update the array values with the new values:
+//     - The current modulo value is the min(currModValue, num)
+//     - The current inverted modulo value is the min(currInvertedModValue, currModValue + num)
 // Return the sum minus the minimum value for the modulo
 
 // Complexities:
