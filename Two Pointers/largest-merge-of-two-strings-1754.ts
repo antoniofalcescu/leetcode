@@ -10,7 +10,7 @@
 
 // Complexities:
 // Time => O(n + m), where n is the length of word1 and m is the length of word2
-// Space => O(n + m)
+// Space => O(1), excluding the output string
 
 function largestMerge(word1: string, word2: string): string {
 	let merged = "";
