@@ -9,7 +9,7 @@
 // Return the merged word
 
 // Complexities:
-// Time => O(n + m), where n is the length of word1 and m is the length of word2
+// Time => O(n^2 + m^2), where n is the length of word1 and m is the length of word2
 // Space => O(1), excluding the output string
 
 function largestMerge(word1: string, word2: string): string {
