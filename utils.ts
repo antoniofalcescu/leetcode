@@ -71,3 +71,15 @@ class TrieNode {
 		this.endOfWord = false;
 	}
 }
+
+class KeyValNode {
+	key: number;
+	val: number;
+	next: KeyValNode | null;
+
+	constructor(key: number, val: number) {
+		this.key = key;
+		this.val = val;
+		this.next = null;
+	}
+}
