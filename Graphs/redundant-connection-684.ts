@@ -4,7 +4,8 @@
 // Use a union find approach to build the tree from the edges and return the redundant edge when we find 2 nodes with the same parent already (cycle)
 // For each node, initialize the parent and rank arrays (parent[i] = i and rank[i] = 1)
 // For each edge, union the two nodes
-// If the union returns false (same parent), return the edge (redundant edge)
+// If the union returns false (same parent), update the answer edge with the current edge (to track the last redundant edge)
+// Return the answer edge
 
 // Complexities:
 // Time => O(n + e), where n is the number of nodes and e is the number of edges in the graph
@@ -48,11 +49,12 @@ function findRedundantConnection(edges: number[][]): number[] {
 		return true;
 	}
 
+	let ans: number[] = [];
 	for (const [n1, n2] of edges) {
 		if (!union(n1, n2)) {
-			return [n1, n2];
+			ans = [n1, n2];
 		}
 	}
 
-	return [];
+	return ans;
 }
