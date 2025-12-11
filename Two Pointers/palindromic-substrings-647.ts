@@ -11,7 +11,7 @@
 // Return the number of palindromes found
 
 // Complexities:
-// Time => O(n), where n is the length of the input string
+// Time => O(n^2), where n is the length of the input string
 // Space => O(1)
 
 function countSubstrings(s: string): number {
