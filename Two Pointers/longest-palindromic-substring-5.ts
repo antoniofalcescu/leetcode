@@ -11,34 +11,38 @@
 // Return the substring of the longest palindrome found
 
 // Complexities:
-// Time => O(n), where n is the length of the input string
+// Time => O(n^2), where n is the length of the input string
 // Space => O(1)
 
-function longestPalindromicSubstring(s: string): string {
-	let ansIdx = 0;
-	let ansLength = 0;
-	let [left, right]: [number, number] = [-1, -1];
+function expandPalindrome(
+	s: string,
+	left: number,
+	right: number
+): [number, number] {
+	while (left >= 0 && right < s.length && s[left] === s[right]) {
+		left--;
+		right++;
+	}
+
+	return [left + 1, right - left - 1];
+}
+
+function longestPalindrome(s: string): string {
+	let [start, length] = [0, 1];
+
 	for (let i = 0; i < s.length; i++) {
-		[left, right] = [i, i];
-		while (left >= 0 && right < s.length && s[left] === s[right]) {
-			if (right - left + 1 > ansLength) {
-				ansIdx = left;
-				ansLength = right - left + 1;
-			}
-			left--;
-			right++;
+		let [currStart, currLength] = expandPalindrome(s, i, i);
+		if (currLength > length) {
+			start = currStart;
+			length = currLength;
 		}
 
-		[left, right] = [i, i + 1];
-		while (left >= 0 && right < s.length && s[left] === s[right]) {
-			if (right - left + 1 > ansLength) {
-				ansIdx = left;
-				ansLength = right - left + 1;
-			}
-			left--;
-			right++;
+		[currStart, currLength] = expandPalindrome(s, i - 1, i);
+		if (currLength > length) {
+			start = currStart;
+			length = currLength;
 		}
 	}
 
-	return s.slice(ansIdx, ansIdx + ansLength);
+	return s.slice(start, start + length);
 }
