@@ -19,11 +19,11 @@
 
 // Complexities:
 // Time:
-//   - getNewsFeed: O(10 * log(f * t)), where f is the number of followers and t is the number of tweets of an user
+//   - getNewsFeed: O(f * log(f)), where f is the number of followers
 //   - postTweet: O(1)
 //   - follow: O(1)
 //   - unfollow: O(1)
-// Space => O(n * (f + t)), where n is the number of users, f is the number of followers and t is the number of tweets of an user
+// Space => O(n * t + n * f + f), where n is the number of users, f is the number of followers and t is the number of tweets of an user
 
 import { MaxPriorityQueue } from "@datastructures-js/priority-queue";
 
