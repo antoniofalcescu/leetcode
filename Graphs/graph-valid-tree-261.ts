@@ -1,17 +1,16 @@
-// https://neetcode.io/problems/valid-tree
+// https://leetcode.com/problems/graph-valid-tree/
 
 // TL;DR:
-// Convert the edges list to a neighbors map per node (undirected graph)
-// Run DFS on the first node (0):
-//   - If the node is already in the visited set, return false (cycle detected)
-//   - Otherwise, mark the node as visited and recursively call dfs on all its neighbors except its parent (if any neighbor returns false, early return false for the current node)
-//   - After the recursive call is done:
-//       - Return true for the current node
-// If the DFS returns false, return false, otherwise return the comparison between the visited set size and the number of nodes (it's a valid tree if we reached all nodes)
+// Use a union find algorithm to check if the graph is connected and has no cycles
+// Initialize the parents and ranks arrays
+// For each node, set the parent to itself and the rank to 1
+// For each edge, union the 2 nodes
+// If the 2 nodes are already in the same set, return false
+// Return true if the number of components is 1
 
 // Complexities:
-// Time => O(v + e), where v is the number of nodes and e is the number of edges in the graph
-// Space => O(v + e), where v is the number of nodes and e is the number of edges in the graph
+// Time => O(e * a(v)), where e is the number of edges and v is the number of vertices (a(v) is the inverse Ackermann function which is amortized <= 4 for any n)
+// Space => O(v), where v is the number of vertices
 
 class GraphValidTreeSolution {
 	/**
@@ -20,40 +19,47 @@ class GraphValidTreeSolution {
 	 * @returns {boolean}
 	 */
 	validTree(n, edges) {
-		const neighborsMap = new Map();
+		const parents: number[] = [];
+		const ranks: number[] = [];
 		for (let i = 0; i < n; i++) {
-			neighborsMap.set(i, []);
+			parents[i] = i;
+			ranks[i] = 1;
 		}
 
-		for (const [node1, node2] of edges) {
-			neighborsMap.get(node1).push(node2);
-			neighborsMap.get(node2).push(node1);
+		function find(node) {
+			while (node !== parents[node]) {
+				parents[node] = parents[parents[node]];
+				node = parents[node];
+			}
+			return node;
 		}
 
-		const visited = new Set();
-		function dfs(node, prevNode) {
-			if (visited.has(node)) {
+		function union(node1, node2) {
+			const parent1 = find(node1);
+			const parent2 = find(node2);
+
+			if (parent1 === parent2) {
 				return false;
 			}
-
-			visited.add(node);
-			for (const neighbor of neighborsMap.get(node)) {
-				if (neighbor === prevNode) {
-					continue;
-				}
-
-				if (!dfs(neighbor, node)) {
-					return false;
-				}
+			if (ranks[parent1] >= ranks[parent2]) {
+				parents[parent2] = parent1;
+				ranks[parent1] += ranks[parent2];
+			} else {
+				parents[parent1] = parent2;
+				ranks[parent2] += ranks[parent1];
 			}
 
 			return true;
 		}
 
-		if (!dfs(0, -1)) {
-			return false;
+		let components = n;
+		for (const [node1, node2] of edges) {
+			if (!union(node1, node2)) {
+				return false;
+			}
+			components--;
 		}
 
-		return visited.size === n;
+		return components === 1;
 	}
 }
