@@ -27,7 +27,7 @@ function reorganizeString(s: string): string {
 	}
 
 	let ans = "";
-	let prev = null;
+	let prev: [string, number] | null = null;
 	while (!maxHeap.isEmpty() || prev) {
 		if (prev && maxHeap.isEmpty()) {
 			return "";
@@ -39,7 +39,6 @@ function reorganizeString(s: string): string {
 			maxHeap.enqueue(prev);
 			prev = null;
 		}
-		z;
 		if (freq > 1) {
 			prev = [c, freq - 1];
 		}
