@@ -13,8 +13,8 @@
 // Space => O(k * C(n, k)), where C(n, k) = n! / (k! * (n - k)!), n is the number of elements and k is the number of elements in the combination
 
 function combine(n: number, k: number): number[][] {
-	const ans = [];
-	const curr = [];
+	const ans: number[][] = [];
+	const curr: number[] = [];
 
 	function bkt(i: number): void {
 		if (curr.length === k) {
