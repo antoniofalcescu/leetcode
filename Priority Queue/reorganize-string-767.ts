@@ -3,12 +3,13 @@
 // TL;DR:
 // Get the frequency map of the input string
 // Use a max heap to store each character and its frequency and pop based on the frequency
-// Keep track of the string we build and a previous variable to make sure we don't add consecutive characters if possible
-// While we still have characters that need to be processed (maxHeap is not empty or prev is not null)
-//   - If the max heap is empty and prev is not null, return an empty string (impossible to reorganize)
-//   - Pop the front character from the max heap, add it to the answer
-//   - If prev is not null, push it back to the max heap
-//   - If the frequency of the current character is greater than 1, assing it to prev with decremented frequency
+// Keep track of the string we build
+// While we still have elements in the max heap:
+//   - Pop the front character from the max heap and check if it's equal to the last character in the answer
+//     - If it is:
+//       - If the max heap is empty, return an empty string (impossible to reorganize)
+//       - Otherwise, pop the next character from the max heap, add it to the answer, decrement the frequency and push it back to the max heap if it still exists
+//     - Otherwise, add the current character to the answer and decrement the frequency and push it back to the max heap if it still exists
 // Return the answer
 
 // Complexities:
@@ -27,20 +28,25 @@ function reorganizeString(s: string): string {
 	}
 
 	let ans = "";
-	let prev: [string, number] | null = null;
-	while (!maxHeap.isEmpty() || prev) {
-		if (prev && maxHeap.isEmpty()) {
-			return "";
+	while (!maxHeap.isEmpty()) {
+		let [c, freq] = maxHeap.dequeue();
+		if (ans.length && ans[ans.length - 1] === c) {
+			if (maxHeap.isEmpty()) {
+				return "";
+			}
+
+			const [c2, freq2] = maxHeap.dequeue();
+			ans += c2;
+			if (freq2 > 1) {
+				maxHeap.enqueue([c2, freq2 - 1]);
+			}
+		} else {
+			ans += c;
+			freq--;
 		}
 
-		const [c, freq] = maxHeap.dequeue();
-		ans += c;
-		if (prev) {
-			maxHeap.enqueue(prev);
-			prev = null;
-		}
-		if (freq > 1) {
-			prev = [c, freq - 1];
+		if (freq > 0) {
+			maxHeap.enqueue([c, freq]);
 		}
 	}
 
