@@ -14,7 +14,7 @@
 //       - If it's Bob's turn, we want to get the minimum possible score with recursively checking the future with Alice's turn
 
 // Complexities:
-// Time => O(n^2), where n is the length of the piles array
+// Time => O(n^3), where n is the length of the piles array
 // Space => O(n^2), where n is the length of the piles array
 
 function stoneGameII(piles: number[]): number {
