@@ -3,11 +3,10 @@
 // TL;DR:
 // Use a DFS approach
 //   - Build the initial adjacency list based on the input
-//   - Use a map to store the prerequisites for each course (indirect prerequisites)
+//   - Use a map to store the prerequisites for each course
 //   - For each course, run DFS to find all the indirect prerequisites:
 //     - If the course is already in the map, return the prerequisites for that course
-//     - Otherwise, add the course itself to its own set in the map and recursively call DFS on all the neighbors of the course
-//     - Add all the neighbors prerequisites for the course to the map of the current course (indirect prerequisites)
+//     - Add all neighbors and their prerequisites for the course to the map of the current course
 //     - Return the set of indirect prerequisites for the current course
 // Iterate through the queries and check if the prerequisite is in the set of indirect prerequisites for the course
 
@@ -20,26 +19,27 @@ function checkIfPrerequisite(
 	prerequisites: number[][],
 	queries: number[][]
 ): boolean[] {
-	const adjList = Array.from({ length: numCourses }, () => new Set<number>());
-	for (const [course, prereq] of prerequisites) {
-		adjList[course].add(prereq);
+	const adjList: number[][] = Array.from({ length: numCourses }, () => []);
+	for (const [crs, pre] of prerequisites) {
+		adjList[crs].push(pre);
 	}
 
-	const prereqMap: Map<number, Set<number>> = new Map();
-	function dfs(course: number): Set<number> {
-		if (prereqMap.has(course)) {
-			return prereqMap.get(course)!;
+	const prereqMap = new Map<number, Set<number>>();
+	function dfs(crs: number): Set<number> {
+		if (prereqMap.has(crs)) {
+			return prereqMap.get(crs)!;
 		}
 
-		prereqMap.set(course, new Set([course]));
-		for (const nei of adjList[course]) {
-			const prereqs = dfs(nei);
+		prereqMap.set(crs, new Set());
+		for (const pre of adjList[crs]) {
+			prereqMap.get(crs)!.add(pre);
+			const prereqs = dfs(pre);
 			for (const prereq of prereqs) {
-				prereqMap.get(course)!.add(prereq);
+				prereqMap.get(crs)!.add(prereq);
 			}
 		}
 
-		return prereqMap.get(course)!;
+		return prereqMap.get(crs)!;
 	}
 
 	for (let i = 0; i < numCourses; i++) {
@@ -47,9 +47,8 @@ function checkIfPrerequisite(
 	}
 
 	const ans: boolean[] = [];
-	for (const [course, prereq] of queries) {
-		ans.push(prereqMap.get(course)!.has(prereq));
+	for (const [crs, pre] of queries) {
+		ans.push(prereqMap.get(crs)!.has(pre));
 	}
-
 	return ans;
 }
