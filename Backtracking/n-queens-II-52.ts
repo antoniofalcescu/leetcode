@@ -22,9 +22,6 @@ function totalNQueens(n: number): number {
 	const posDiags = new Set<number>();
 	const negDiags = new Set<number>();
 
-	const board = Array.from({ length: n }, () =>
-		Array.from({ length: n }, () => ".")
-	);
 	let ans = 0;
 	function bkt(row: number): void {
 		if (row === n) {
