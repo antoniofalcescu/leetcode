@@ -1,12 +1,13 @@
 // https://leetcode.com/problems/plus-one/
 
 // TL;DR:
-// Initialize a leftover variable to 0
-// Iterate through the digits from right to left
-//   - Update the leftover = (current digit + 1) / 10
-//   - Update the current digit = (current digit + 1) % 10
-//   - If the leftover is 0, break the loop (we don't need to carry over anymore)
-// After the loop, if the leftover is 1, add a 1 to the beginning of the digits (we need to carry over)
+// Initialize a leftover variable to 1
+// Iterate through the digits from right to left while we have a leftover"
+//   - Add the leftover to the current digit
+//   - Update the leftover with the result of current digit divided by 10
+//   - Update the current digit with the result of current digit modulo 10
+//   - Decrement the index
+// After the loop, if the leftover is not 0, add it to the beginning of the digits
 // Return the digits array
 
 // Complexities:
@@ -14,16 +15,17 @@
 // Space => O(1)
 
 function plusOne(digits: number[]): number[] {
-	let leftover = 0;
-	for (let i = digits.length - 1; i >= 0; i--) {
-		leftover = Math.floor((digits[i] + 1) / 10);
-		digits[i] = (digits[i] + 1) % 10;
-		if (leftover === 0) {
-			break;
-		}
+	let i = digits.length - 1;
+	let leftover = 1;
+	while (i >= 0 && leftover > 0) {
+		digits[i] += leftover;
+		leftover = Math.floor(digits[i] / 10);
+		digits[i] %= 10;
+		i--;
 	}
-	if (leftover === 1) {
-		digits.splice(0, 0, 1);
+
+	if (leftover) {
+		digits.splice(0, 0, leftover);
 	}
 
 	return digits;
