@@ -11,26 +11,26 @@
 
 function topKFrequent(nums: number[], k: number): number[] {
 	const freqMap: Record<number, number> = {};
-	for (const x of nums) {
-		freqMap[x] = (freqMap[x] ?? 0) + 1;
+	for (const num of nums) {
+		freqMap[num] = (freqMap[num] ?? 0) + 1;
 	}
 
-	const buckets: number[][] = Array.from({ length: nums.length + 1 }, () => []);
-	for (const [num, freq] of Object.entries(freqMap)) {
-		buckets[freq].push(Number(num));
+	const maxFreq = Math.max(...Object.values(freqMap));
+	const buckets: number[][] = Array.from({ length: maxFreq + 1 }, () => []);
+	for (const [numKey, freq] of Object.entries(freqMap)) {
+		const num = Number(numKey);
+		buckets[freq].push(num);
 	}
 
 	const ans: number[] = [];
-	let j = buckets.length - 1;
-	while (k > 0 && j > 0) {
-		const bucketLength = buckets[j].length;
-		if (bucketLength) {
-			const numOfElemsToTake = Math.min(bucketLength, k);
-			ans.push(...buckets[j].splice(0, numOfElemsToTake));
-			k -= numOfElemsToTake;
+	for (let i = buckets.length - 1; i >= 0; i--) {
+		const remaining = k - ans.length;
+		if (remaining === 0) {
+			break;
 		}
 
-		j--;
+		const slice = buckets[i].slice(0, remaining);
+		ans.push(...slice);
 	}
 
 	return ans;
